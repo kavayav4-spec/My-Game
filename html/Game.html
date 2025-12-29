@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Game</title>
+    </head>
+    <style>
+        body{
+            background-color: black;
+            text-align: center;
+        }
+        h1{
+            text-align: center;
+            color: white;
+        }
+        button{
+            text-align: center;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            padding:15px 25px;
+            background-color: red;
+            color: white;
+        }
+        img{
+            font-size: small;
+            text-align: center;
+            width: 200px;
+            height: auto;
+            margin:20px auto;
+        }
+        #set1{
+            display: none;
+        }
+         #set2{
+            display: none;
+        }
+        #set3{
+            display: none;
+        }
+        
+        h3{
+            color: white;
+        }
+        #myimage{
+            background-color: black;
+            display: none;
+        }
+        #btn-container,#bus{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap:15px;
+        }
+        marquee{
+            text-align: center;
+        }
+
+        input{
+            background-color: black;
+            color:white;
+            padding: 6px;
+            border: 2px solid;
+            font-size: 16px;
+
+        }
+        label{
+            color: white;
+            margin-bottom:5px;
+            background-color: red;
+            font: bold;
+            padding:8px;
+            border:none;
+        }
+        #container{
+            display:none;
+        }
+
+        #clue-text1,#clue-text2,#clue-text3{
+            color: white;
+        
+        }
+        #clue1,#clue2,#clue3{
+            display: none;
+        }
+        #bus{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        } 
+        .submit-but{
+            display: flex;
+            gap: 15px;
+        }
+    </style>
+    <body>
+        <h1>Escape Room</h1>
+        
+        <button onclick="playGame()">Let's Play👊</button><br>
+    
+        <marquee scrollamount="5" direction="down">
+        <h3 id="message"></h3>
+        </marquee>
+
+        <img id="myimage" src="door.jpg" alt="Wait a second">
+
+        <div id="btn-container">
+    
+        <button onclick="keyOne()">key1🗝️</button>
+        <button onclick="keyTwo()">key2🗝️</button>
+        <button onclick="keyThree()">key3🗝️</button>
+
+        </div><br>
+
+        <img id="set1" src="rid1.jpg" alt="wait a second">
+        <img id="set2" src="rid2.jpg" alt="wait a second">
+        <img id="set3" src="rid3.jpg" alt="wait a second">
+
+
+        <label for="ans">Answer rid :</label>
+            <input id="ans" type="text">
+    </div><br><br>
+
+        <div id="bus">
+            <div class="submit-but">
+        <button onclick="submission1()">submit1</button>
+        <button onclick="submission2()">submit2</button>
+        <button onclick="submission3()">submit3</button>
+        </div>
+        <p id="mes" style="color:white; text-align:center; margin-top:10px;"></p>
+
+
+
+        </div>
+        
+
+        <div>
+        <div id="clue1">
+        <button onclick="showClue1()">hint1</button><br>
+        </div>
+        <div id="clue2">
+        <button onclick="showClue2()">hint2</button><br>
+        </div>
+        <div id="clue3">
+        <button onclick="showClue3()">hint3</button><br>
+        </div>
+        
+        
+
+        <p id="clue-text1"></p>
+        <p id="clue-text2"></p>
+        <p id="clue-text3"></p>
+    </div>
+
+    <script>
+        let key1Solved = false;
+        let key3Solved = false;
+        let key2Solved = false;
+
+        function playGame()
+        {
+
+        document.getElementById("message").innerText = "Game starts now! 😁";
+        document.getElementById("myimage").style.display = "block";
+
+        }
+        function hideAllSets()
+        {
+            document.getElementById("set1").style.display = "none";
+            document.getElementById("set2").style.display = "none";
+            document.getElementById("set3").style.display = "none";
+        }
+        function resetTextsAndHints()
+        {
+             
+
+
+            document.getElementById("clue1").style.display = "none";
+            document.getElementById("clue2").style.display = "none";
+            document.getElementById("clue3").style.display = "none";
+
+
+            document.getElementById("clue-text1").style.display = "none";
+            document.getElementById("clue-text2").style.display = "none";
+            document.getElementById("clue-text3").style.display = "none";
+    }
+
+
+     function keyOne()
+    {
+        if (!key1Solved)
+        {
+            resetTextsAndHints();
+            hideAllSets();
+            document.getElementById("set1").style.display = "block";
+            
+
+        }
+
+    }
+    
+    function submission1()
+    {
+    
+        let inputElement = document.getElementById("ans"); 
+        let userAnswer = inputElement.value.toLowerCase().trim(); 
+        let correctAnswer = "m";
+
+        if(userAnswer===correctAnswer)
+        {
+            key1Solved = true;
+            document.getElementById("mes").innerText = "Unlocked👏🎉\nMove to next key👊\n";
+            inputElement.value = "";
+            document.getElementById("clue1").style.display="none";
+            document.getElementById("clue-text1").style.display="none";
+
+        
+
+        }
+        else
+        {
+            document.getElementById("mes").innerText = "Try Again😞";
+            document.getElementById("clue1").style.display="block";
+            
+        }
+    }
+    function showClue1()
+    {
+        document.getElementById("clue-text1").style.display="block";
+        document.getElementById("clue-text1").innerText = "That is in your basic learning of english😉";
+    }
+
+    function keyTwo()
+    {
+            if (key1Solved && !key2Solved)
+            {
+                resetTextsAndHints();
+                hideAllSets();
+                document.getElementById("set2").style.display = "block";
+            
+            }
+    }
+    function submission2(){
+        let inputElement = document.getElementById("ans"); 
+        let userAnswer = inputElement.value.toLowerCase().trim(); 
+        let correctAnswer = "married";
+        if(userAnswer===correctAnswer)
+        {
+            key2Solved = true;
+            document.getElementById("mes").innerText = "Unlocked👏🎉\nMove to next key👊";
+            inputElement.value = "";
+            document.getElementById("clue2").style.display="none";
+            document.getElementById("clue-text1").style.display="none";
+
+
+        }
+        else
+        {
+            document.getElementById("mes").innerText = "Try Again😞";
+            document.getElementById("clue2").style.display="block";
+            
+        }
+
+    }
+    function showClue2(){
+        document.getElementById("clue-text2").style.display="block";
+        document.getElementById("clue-text2").innerText = "Think Big🙄";
+    }
+
+    function keyThree()
+    {
+        if (key2Solved && !key3Solved)
+        {
+        resetTextsAndHints();
+        hideAllSets();
+        document.getElementById("set3").style.display = "block";
+        document.getElementById("clue-text2").style.display="none";
+
+
+        }
+    }
+    function submission3(){
+
+        let inputElement = document.getElementById("ans"); 
+        let userAnswer = inputElement.value.toLowerCase().trim(); 
+        let correctAnswer = "plate";
+        if(userAnswer===correctAnswer)
+        {
+            key3Solved = true;
+            document.getElementById("mes").innerText = "🎉 YOU ESCAPED THE ROOM! 🚪🔥";
+            inputElement.value = "";
+            document.getElementById("clue3").style.display="none";
+            document.getElementById("clue-text3").style.display="none";
+
+        }
+        else
+        {
+            document.getElementById("mes").innerText = "Try Again😞";
+            document.getElementById("clue3").style.display="block";
+            
+        }
+    }
+    function showClue3()
+    {
+        document.getElementById("clue-text3").style.display="block";
+        document.getElementById("clue-text3").innerText = "That you used in morning,afternoon and evening🤔";
+    }
+    
+
+
+    </script>
